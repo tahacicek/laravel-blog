@@ -18,4 +18,13 @@ class Homepage extends Controller
         return view("customer.homepage", $data);
     }
 
+    public function blog_detail($slug){
+        $data["post"]=Post::where("slug", $slug)->first() ?? abort(403, "Böyle bir yazı bulunumadı");
+        
+        $data["categories"]=Category::inRandomOrder()->get();
+
+        return view("customer.blog-detail", $data);
+
+    }
+
 }

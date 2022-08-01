@@ -18,4 +18,6 @@ use App\Http\Controllers;
 
 Route::namespace('Customer')->group(function () {
     Route::get("/", "Homepage@index")->name("homepage");
+    Route::get("/blog/{slug}", "Homepage@blog_detail")->name("blog_detail");
+
 });

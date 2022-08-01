@@ -10,4 +10,8 @@ class Category extends Model
     use HasFactory;
     protected $table = "categories";
 
+    public function categoryCount(){
+        return $this->hasMany("App\Models\Post", "category_id", "id")->count(); //Bağlanacağımız model - Bağlanacağımız stun - Bağlanacağımız id.
+    }
+
 }

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
-    protected $table = "post";
+  use HasFactory;
+  protected $table = "post";
 
-    function getCategory(){
-      return  $this->hasOne("App\Models\Category", "id", "category_id");
-    }
-
+  function getCategory()
+  {
+    return  $this->hasOne("App\Models\Category", "id", "category_id");
+  }
 }

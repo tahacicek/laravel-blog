@@ -18,5 +18,7 @@ use App\Http\Controllers;
 
 Route::namespace('Customer')->group(function () {
     Route::get("/", "Homepage@index")->name("homepage");
+    Route::get("/kategori/{category}", "Homepage@category")->name("kategori");
     Route::get("/{category}/{slug}", "Homepage@blog_detail")->name("blog_detail");
+
 });

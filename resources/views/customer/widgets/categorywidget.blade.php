@@ -8,12 +8,12 @@
         <ul class="list-group">
          @foreach ($categories as $category)
              
-         <li class="list-group-item"><button type="button" class="btn btn-outline-dark">
+         <li class="list-group-item"><a href="{{ route("kategori", $category->slug) }}"> <button type="button" class="btn btn-outline-dark">
           
-            <em>{{ $category->name }}</em>  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <em>{{ $category->name }}</em> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                  {{ $category->categoryCount() }}
                  <span class="visually-hidden">unread messages</span>
-               </span>
+               </span> </a>
            </button></li>
          @endforeach
        </ul>

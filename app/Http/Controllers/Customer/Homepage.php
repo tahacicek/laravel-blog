@@ -29,4 +29,12 @@ class Homepage extends Controller
         $data["categories"] = Category::inRandomOrder()->get();
         return view("customer.blog-detail", $data);
     }
+
+    public function category($slug){
+        $category = Category::whereSlug($slug)->first() ?? abort(403, "Böyle bir kategori bulunumadı");
+        $data["post"]=Post::where("category_id", $category->id)->inRandomOrder()->get();
+        $data["category"]=$category;
+        return view("customer.category", $data);
+
+    }
 }

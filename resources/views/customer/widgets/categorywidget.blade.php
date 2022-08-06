@@ -7,8 +7,10 @@
         <h5 class="display-6 mb-3 card-title"> <em> Kategoriler</em></h5>
         <ul class="list-group">
          @foreach ($categories as $category)
-             
-         <li class="list-group-item"><a href="{{ route("kategori", $category->slug) }}"> <button type="button" class="btn btn-outline-dark">
+           
+         <li class="list-group-item  @if  (Request::segment(2)==$category->slug) text-light bg-info  @endif ">
+          <a href=" @if (Request::segment(2)!=$category->slug) {{ route("kategori", $category->slug) }} @endif "> 
+          <button type="button" class="btn btn-outline-dark">
           
             <em>{{ $category->name }}</em> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                  {{ $category->categoryCount() }}

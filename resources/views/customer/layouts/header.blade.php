@@ -34,8 +34,9 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route("homepage") }}">Ana Sayfa</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ asset("front/") }}/about.html">Hakkımda</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ asset("front/") }}/post.html">Blog</a></li>
+                  @foreach ($pages as $page )
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route("page", $page->slug) }}">{{ $page->title }}</a></li>
+                  @endforeach
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ asset("front/") }}/contact.html">İletişim</a></li>
                 </ul>
             </div>

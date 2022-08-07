@@ -11,15 +11,18 @@ use App\Models\Post;
 use Dotenv\Store\File\Paths;
 use Illuminate\Support\Facades\Storage;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
-
+use App\Models\Page;
 class Homepage extends Controller
 {
+    public function __construct()
+    {   
+        view()->share("pages", Page::orderBy("order", "ASC")->get());
+        view()->share("categories", Category::inRandomOrder()->get());
+
+    }
     public function index()
     {
         $data["post"] = Post::inRandomOrder("created_at", "DESC")->paginate(4);
-        $data["categories"] = Category::inRandomOrder()->get();
-        $data["post"]->withPath("yazilar/sayfa");
-
         return view("customer.homepage", $data);
     }
 
@@ -29,12 +32,10 @@ class Homepage extends Controller
         $post = Post::where("slug", $slug)->whereCategoryId($category->id)->first() ?? abort(403, "Böyle bir yazı bulunumadı");
         $post->increment("hit");
         $data["post"] = $post;
-        $data["categories"] = Category::inRandomOrder()->get();
         return view("customer.blog-detail", $data);
     }
 
     public function category($slug){
-        $data["categories"] = Category::inRandomOrder()->get();
 
         $category = Category::whereSlug($slug)->first() ?? abort(403, "Böyle bir kategori bulunumadı");
         $data["post"]=Post::where("category_id", $category->id)->inRandomOrder()->paginate(2);
@@ -42,4 +43,12 @@ class Homepage extends Controller
         return view("customer.category", $data);
 
     }
+
+    public function page($slug){
+        $page=Page::whereSlug($slug)->first() ?? abort(403, "Böyle bir kategori bulunumadı");
+        $data["page"]=$page;
+        return view("customer.page", $data );
+
+    }
+   
 }

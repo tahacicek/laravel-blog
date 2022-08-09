@@ -1,17 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Customer;
-
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\PostRequest;
+use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\Post;
 use Dotenv\Store\File\Paths;
 use Illuminate\Support\Facades\Storage;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+use Illuminate\Support\Facades\Validator;
+
+//models
 use App\Models\Page;
+use App\Models\Contact;
+use App\Models\Category;
+use App\Models\Post;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Hash;
+
+use function GuzzleHttp\Promise\all;
+
 class Homepage extends Controller
 {
     public function __construct()
@@ -50,5 +61,38 @@ class Homepage extends Controller
         return view("customer.page", $data );
 
     }
+
+    public function contact(){
+        return view("customer.contact");
+    }
    
+    public function contact_post(Request $request){
+      
+        $rules = [
+            "name"=>"required|min:5"
+          
+        ];
+
+        $validated=Validator::make($request->all(), $rules);
+        
+        if ($validated->fails()) {
+            toastr()->error("İsim alanı boş bırakılamaz ve en az beş karakter olmalıdır.", "Dikkat!");
+            return redirect()->route("contact");
+           
+        }
+           
+        
+        $contact = new Contact;
+        $contact->name=$request->name;
+        $contact->email=$request->email;
+        $contact->topic=$request->topic;
+        $contact->message=$request->message;
+        $contact->save();
+
+        
+        toastr()->success("Başarılı", 'Mesajınız başarıyla gönderildi, en kısa zamanda dönüş sağlanacaktır.');
+
+        return redirect()->route("contact");
+
+    }
 }

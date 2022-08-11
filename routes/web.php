@@ -5,9 +5,34 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\Customer\Homepage;
 use Illuminate\Http\Request;
 use App\Http\Controllers;
+
+
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+|Back Route
+|--------------------------------------------------------------------------
+*/
+
+Route::namespace('Admin')->group(function () {
+    Route::get("/admin", "Dashboard@index")->name("dashboard");
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|Front Route
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -27,3 +52,4 @@ Route::namespace('Customer')->group(function () {
 
 
 });
+

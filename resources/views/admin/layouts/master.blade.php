@@ -1,0 +1,5 @@
+@include("admin.layouts.header")
+@include("admin.layouts.menu")
+@include("admin.layouts.topbar")
+@yield("content")
+@include("admin.layouts.footer")

@@ -1,4 +1,5 @@
 @extends("admin.layouts.master")
+@section("title", "Admin Panel")
 @section("content")
                 <!-- Begin Page Content -->
               

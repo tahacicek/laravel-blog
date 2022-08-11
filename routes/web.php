@@ -15,7 +15,7 @@ use App\Http\Controllers;
 
 Route::namespace('Admin')->group(function () {
     Route::get("/admin", "Dashboard@index")->name("dashboard");
-
+    Route::get("/login", "Auth@login")->name("login");
 
 });
 

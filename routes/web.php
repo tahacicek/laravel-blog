@@ -13,22 +13,15 @@ use App\Http\Controllers;
 |--------------------------------------------------------------------------
 */
 
-Route::namespace('Admin')->group(function () {
-    Route::get("/admin", "Dashboard@index")->name("dashboard");
-    Route::get("/login", "Auth@login")->name("login");
-
+Route::namespace('Admin')->middleware("isLogin")->group(function () {
+    Route::get("/login", "Authe@login")->name("login");
+    Route::post("/login.ln", "Authe@loginPost")->name("login.post");
 });
 
-
-
-
-
-
-
-
-
-
-
+Route::namespace('Admin')->middleware("isAdmin")->group(function () {
+    Route::get("/admin", "Dashboard@index")->name("dashboard");
+    Route::get("/logout", "Authe@logout")->name("logout");
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +42,4 @@ Route::namespace('Customer')->group(function () {
     Route::get("/{category}/{slug}", "Homepage@blog_detail")->name("blog_detail");
     Route::get("/{sayfa}", "Homepage@page")->name("page");
     Route::get("/iletisim", "Homepage@contact")->name("contact");
-
-
 });
-

@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{asset("back/")}}/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/675/675729.png" type="image/x-icon">
+    <link href="{{asset("back/")}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">

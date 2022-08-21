@@ -55,7 +55,18 @@ aria-hidden="true">
 <!-- Page level custom scripts -->
 <script src="{{asset("back/")}}/js/demo/chart-area-demo.js"></script>
 <script src="{{asset("back/")}}/js/demo/chart-pie-demo.js"></script>
+    <!-- Bootstrap core JavaScript-->
 
+    <!-- Core plugin JavaScript-->
+
+    <!-- Custom scripts for all pages-->
+
+    <!-- Page level plugins -->
+    <script src="{{asset("back/")}}/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{asset("back/")}}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset("back/")}}/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

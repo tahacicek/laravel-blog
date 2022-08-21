@@ -22,6 +22,7 @@ class Post extends Migration
             $table->string("author");
             $table->string("slug");
             $table->integer("hit")->default(0);
+            $table->integer("status")->default(0)->comment("0:pasif 1:aktif");
             $table->foreign("category_id")
             ->references("id")
             ->on("categories");

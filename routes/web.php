@@ -5,7 +5,7 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\Customer\Homepage;
 use Illuminate\Http\Request;
 use App\Http\Controllers;
-
+use App\Http\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,7 @@ Route::namespace('Admin')->middleware("isLogin")->group(function () {
 
 Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     Route::get("/admin", "Dashboard@index")->name("dashboard");
+    Route::resource("yazilar", "PostController");
     Route::get("/logout", "Authe@logout")->name("logout");
 });
 

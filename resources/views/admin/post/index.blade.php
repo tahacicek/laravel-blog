@@ -34,7 +34,7 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->getCategory->name }}</td>
                                 <td>{{ $post->hit }}</td>
-                                <td class="text-center">{{ $post->created_at->diffForHumans() }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">{!! $post->status == 0
                                     ? "<span class='text-center text-dark badge bg-warning '>Pasif</span>"
                                     : "<span class='text-center text-white badge bg-success'>Yayınlandı</span>" !!}</td>

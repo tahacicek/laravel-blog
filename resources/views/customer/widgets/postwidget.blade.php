@@ -9,7 +9,7 @@
         <b> Yazan:</b> {{ $posts->author }} <b class="ms-4">Kategori:</b>
         <b> <a href="#!"> {{ $posts->getCategory->name }}</a></b> <b class="ms-4">Görüntülenme
             Sayısı: </b>{{ $posts->hit }}
-        <span class="d-flex justify-content-end ">{{ $posts->created_at->diffForHumans() }}</span>
+        <span class="d-flex justify-content-end ">{{ \Carbon\Carbon::parse($posts->created_at)->diffForHumans() }}</span>
     </p>
 </div>
 @if (!$loop->last)

@@ -10,7 +10,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLWare<sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">defatech<sup>2</sup></div>
             </a>
 
             <!-- Divider -->
@@ -38,11 +38,11 @@
                     <i class="fas fa-fw fa-columns"></i>
                     <span>Blog Yazıları</span>
                 </a>
-                <div id="collapseTwo" class="collapse {{ (request()->is("yazilar")) ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse {{ (request()->is("yazilar", "yazilar/create") ) ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Yazı İşlemleri:</h6>
                         <a class="collapse-item {{ (request()->is("yazilar")) ? 'active' : '' }}" href="{{ route("yazilar.index") }}">Tüm Yazılar</a>
-                        <a class="collapse-item" href="{{asset("back/")}}/cards.html">Yazı Oluştur</a>
+                        <a class="collapse-item {{ (request()->is("yazilar/create")) ? 'active' : '' }}" href="{{ route("yazilar.create") }}">Yazı Oluştur</a>
                     </div>
                 </div>
             </li>

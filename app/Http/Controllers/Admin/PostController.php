@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
-
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 class PostController extends Controller
 {
     /**
@@ -25,8 +27,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   $categories=Category::all();
+        return view("admin.post.create", compact("categories"));
     }
 
     /**
@@ -37,7 +39,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:3|',
+
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imagesname = Str::slug($request->title) . "-" . time() . '.' . $request->image->extension();
+
+        $request->image->move(public_path('uploads/post/'), $imagesname);
+        $insert = Post::insert([
+            "title" => $request->title,
+            "category_id" => $request->category_id,
+            "author" => $request->author,
+            "slug" => Str::slug($request->title),
+            "descr" => $request->descr,
+            "image" => "uploads/post/" . $imagesname,
+
+        ]);
+        if ($insert) {
+            toastr()->success($request->title . ' Yazı başarıyla kaydedildi!', 'Yazı Yönetimi');
+            return redirect()->back();
+        } else {
+            toastr()->error('Bir sorun oluştu!', 'Yazı Yönetimi');
+            return redirect()->back();
+        }
     }
 
     /**

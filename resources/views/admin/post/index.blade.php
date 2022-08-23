@@ -31,13 +31,15 @@
                                     <img src="{{ $post->image }}" width="200" class="img-fluid rounded-top"
                                         alt="">
                                 </td>
+
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->getCategory->name }}</td>
                                 <td>{{ $post->hit }}</td>
                                 <td class="text-center">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</td>
-                                <td class="text-center">{!! $post->status == 0
-                                    ? "<span class='text-center text-dark badge bg-warning '>Pasif</span>"
-                                    : "<span class='text-center text-white badge bg-success'>Yayınlandı</span>" !!}</td>
+                                <td class="text-center">
+                                    <input id="switch"  type="checkbox" data-on="Yayında" data-off="Pasif" data-onstyle="success" data-offstyle="danger"  data-toggle="toggle" data-size="mini"  @if ($post->status==1) checked @endif>
+
+                                    </td>
                                 <td class="text-center">
                                     <a href="" title="Görünütle" class="btn btn-sm btn-success"><i
                                             class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
@@ -53,6 +55,13 @@
             </div>
         </div>
     </div>
-
     </div>
+    <script>
+        $(function() {
+          $('#switch').change(function() {
+           alert('Toggle: ' + $(this).prop('checked'))
+          })
+        })
+      </script>
 @endsection
+

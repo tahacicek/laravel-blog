@@ -67,7 +67,8 @@ aria-hidden="true">
 
     <!-- Page level custom scripts -->
     <script src="{{asset("back/")}}/js/demo/datatables-demo.js"></script>
-    
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
     @yield("js")
     
 </body>

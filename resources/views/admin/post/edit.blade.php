@@ -1,14 +1,14 @@
 @extends('admin.layouts.master')
-@section('title', 'Blog asds')
+@section('title', 'Blog Yazıları')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="border-bottom-success card-header py-3">
-            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda yazı yayınlıyorsunuz.
+            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut yazınızı düzenliyorsunuz
             </h6>
             <h6 class="m-0 font-weight-bold float-right text-primary">
-                Toplam <strong>sd </strong> yazı bulundu.</h6>
+                 <strong>{{ $post->title." " }}</strong>isimli yazı.</h6>
         </div>
         <div class="row">
             <div class="col-12">

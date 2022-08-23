@@ -114,10 +114,10 @@ class PostController extends Controller
             "image" => $request->image="uploads/post/" . $imagesname,
         ]);
         if ($update) {
-            toastr()->success($request->title . ' Güncellendi.', 'Yazı Yönetimi');
+            toastr()->success($request->title . 'Başarıyla Güncellendi.', 'Blog Yazıları');
             return redirect()->back();
         } else {
-            toastr()->error('Bir sorun oluştu!', 'Ürün Yönetimi');
+            toastr()->error('Bir sorun oluştu!', 'Blog Yazıları');
             return redirect()->back();
         }
     }
@@ -130,6 +130,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = Post::where("id", $id)->delete();
+        if ($delete) {
+            toastr()->success('Başarıyla silindi!', 'Galeri Yönetimi');
+            return redirect()->back();
+        } else {
+            toastr()->error('Silinirken bir hata oluştu!', 'Galeri Yönetimi');
+        }
     }
 }

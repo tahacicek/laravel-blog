@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 class PostController extends Controller
 {
     /**
@@ -17,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post=Post::orderBy("created_at", "ASC")->get();
+        $post = Post::orderBy("created_at", "ASC")->get();
         return view("admin.post.index", compact("post"));
     }
 
@@ -27,7 +29,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $categories=Category::all();
+    {
+        $categories = Category::all();
         return view("admin.post.create", compact("categories"));
     }
 
@@ -85,6 +88,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
+        $post = Post::where("id", $id)->first();
+        return view("admin.post.edit", compact("categories", "post"));
     }
 
     /**
@@ -96,7 +102,24 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $imagesname = Str::slug($request->title) . "-" . time() . '.' . $request->image->extension();
+
+        $request->image->move(public_path('uploads/post/'), $imagesname);
+        
+        $update = Post::where('id', $id)->update([
+            "title" => $request->title,
+            "category_id" => $request->category_id,
+            "author" => $request->author,
+            "descr" => $request->descr,
+            "image" => $request->image="uploads/post/" . $imagesname,
+        ]);
+        if ($update) {
+            toastr()->success($request->title . ' Güncellendi.', 'Yazı Yönetimi');
+            return redirect()->back();
+        } else {
+            toastr()->error('Bir sorun oluştu!', 'Ürün Yönetimi');
+            return redirect()->back();
+        }
     }
 
     /**

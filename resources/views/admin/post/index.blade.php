@@ -41,7 +41,7 @@
                                 <td class="text-center">
                                     <a href="" title="Görünütle" class="btn btn-sm btn-success"><i
                                             class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
-                                    <a href="" title="Düzenle" class="btn btn-sm btn-primary"><i
+                                    <a href="{{ route("yazilar.edit", $post->id) }}" title="Düzenle" class="btn btn-sm btn-primary"><i
                                             class="fa fa-edit m-2" aria-hidden="true"></i></i></i></a><br><br>
                                     <a href="" title="Sil" class="btn btn-sm btn-danger"><i
                                             class="fa fa-trash m-2" aria-hidden="true"></i></i></i></i></a>

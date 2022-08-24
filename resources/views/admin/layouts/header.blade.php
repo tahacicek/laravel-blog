@@ -21,7 +21,6 @@
     <link href="{{asset("back/")}}/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/675/675729.png" type="image/x-icon">
     <link href="{{asset("back/")}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     @yield("css")
     

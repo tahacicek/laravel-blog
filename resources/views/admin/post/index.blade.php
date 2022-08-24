@@ -37,14 +37,16 @@
                                 <td>{{ $post->hit }}</td>
                                 <td class="text-center">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
-                                    <input id="switch"  type="checkbox" data-on="Yayında" data-off="Pasif" data-onstyle="success" data-offstyle="danger"  data-toggle="toggle" data-size="mini"  @if ($post->status==1) checked @endif>
-
-                                    </td>
+                                    <input class="switch" data="{{ $post->id }}" type="checkbox" data-on="Yayında"
+                                        data-off="Pasif" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                        data-size="mini" @if ($post->status == 1) checked @endif>
+                                </td>
                                 <td class="text-center">
                                     <a href="" title="Görünütle" class="btn btn-sm btn-success"><i
                                             class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
-                                    <a href="{{ route("yazilar.edit", $post->id) }}" title="Düzenle" class="btn btn-sm btn-primary"><i
-                                            class="fa fa-edit m-2" aria-hidden="true"></i></i></i></a><br><br>
+                                    <a href="{{ route('yazilar.edit', $post->id) }}" title="Düzenle"
+                                        class="btn btn-sm btn-primary"><i class="fa fa-edit m-2"
+                                            aria-hidden="true"></i></i></i></a><br><br>
                                     <a href="" title="Sil" class="btn btn-sm btn-danger"><i
                                             class="fa fa-trash m-2" aria-hidden="true"></i></i></i></i></a>
                                 </td>
@@ -56,12 +58,29 @@
         </div>
     </div>
     </div>
-    <script>
-        $(function() {
-          $('#switch').change(function() {
-           alert('Toggle: ' + $(this).prop('checked'))
-          })
-        })
-      </script>
 @endsection
 
+@section('css')
+    <!-- include summernote css -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+@endsection
+
+@section('js')
+    <!-- include summernote js -->
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+        $(function() {
+            $('.switch').change(function() {
+                id = +$(this)[0].getAttribute("data");
+                status=$(this).prop("checked");
+                $.get("{{ route('switch') }}", {id:id, status:status}, function(data, status) {
+                        console.log(data);
+                  });
+            })
+        })
+
+
+    </script>
+@endsection

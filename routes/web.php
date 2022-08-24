@@ -21,6 +21,7 @@ Route::namespace('Admin')->middleware("isLogin")->group(function () {
 Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     Route::get("/admin", "Dashboard@index")->name("dashboard");
     Route::resource("yazilar", "PostController");
+    Route::get("/switch", "PostController@switch" )->name("switch");
     Route::get("/logout", "Authe@logout")->name("logout");
 });
 

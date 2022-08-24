@@ -105,13 +105,13 @@ class PostController extends Controller
         $imagesname = Str::slug($request->title) . "-" . time() . '.' . $request->image->extension();
 
         $request->image->move(public_path('uploads/post/'), $imagesname);
-        
+
         $update = Post::where('id', $id)->update([
             "title" => $request->title,
             "category_id" => $request->category_id,
             "author" => $request->author,
             "descr" => $request->descr,
-            "image" => $request->image="uploads/post/" . $imagesname,
+            "image" => $request->image = "uploads/post/" . $imagesname,
         ]);
         if ($update) {
             toastr()->success($request->title . 'Başarıyla Güncellendi.', 'Blog Yazıları');
@@ -120,6 +120,14 @@ class PostController extends Controller
             toastr()->error('Bir sorun oluştu!', 'Blog Yazıları');
             return redirect()->back();
         }
+    }
+
+    public function switch(Request $request)
+    {
+        $post=Post::findOrFail($request->id);
+        $post->status=$request->status=="true"  ? 1 : 0 ;
+        $post->save();
+      
     }
 
     /**

@@ -21,7 +21,11 @@ Route::namespace('Admin')->middleware("isLogin")->group(function () {
 Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     Route::get("/admin", "Dashboard@index")->name("dashboard");
     Route::resource("yazilar", "PostController");
+    Route::get("/recoverpost/{id}", "PostController@cover" )->name("recover");
+    Route::get("/deletepost/{id}", "PostController@harddel" )->name("harddelete");
     Route::get("/switch", "PostController@switch" )->name("switch");
+    Route::get("/trash", "PostController@softdel" )->name("softdel");
+
     Route::get("/logout", "Authe@logout")->name("logout");
 });
 

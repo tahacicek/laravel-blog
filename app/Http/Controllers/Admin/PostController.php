@@ -9,7 +9,8 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use File;
+use Illuminate\Filesystem\Filesystem;
 class PostController extends Controller
 {
     /**
@@ -124,10 +125,9 @@ class PostController extends Controller
 
     public function switch(Request $request)
     {
-        $post=Post::findOrFail($request->id);
-        $post->status=$request->status=="true"  ? 1 : 0 ;
+        $post = Post::findOrFail($request->id);
+        $post->status = $request->status == "true"  ? 1 : 0;
         $post->save();
-      
     }
 
     /**
@@ -140,10 +140,44 @@ class PostController extends Controller
     {
         $delete = Post::where("id", $id)->delete();
         if ($delete) {
-            toastr()->success('Başarıyla silindi!', 'Galeri Yönetimi');
+            toastr()->success('Başarıyla geri dönüşüm kutusuna atıldı!', 'Blog Yazıları');
             return redirect()->back();
         } else {
-            toastr()->error('Silinirken bir hata oluştu!', 'Galeri Yönetimi');
+            toastr()->error('Geri dönüşüme atılırken bir hata oluştu!', 'Blog Yazıları');
+        }
+    }
+
+    public function softdel()
+    {
+        $post = Post::onlyTrashed()->orderBy("deleted_at", "ASC")->get();
+
+        return view("admin.post.trash", compact("post"));
+    }
+    public function cover($id)
+    {
+        $post = Post::onlyTrashed()->find($id)->restore();
+        if ($post) {
+            toastr()->success('Başarıyla kurtarıldı!', 'Blog Yazıları');
+            return redirect()->back();
+        } else {
+            toastr()->error('Silinirken bir hata oluştu!', 'Blog Yazıları');
+        }
+    }
+
+    public function harddel($id)
+    {
+       $post = Post::onlyTrashed()->find($id);
+        $photo = file_exists(($post->image));
+        if($photo){
+            file_exists(unlink(public_path($post->image)));
+
+        }
+        $delete = Post::where("id", $id)->forceDelete();
+        if ($delete) {
+            toastr()->success('Başarıyla silindi!', 'Blog Yazıları');
+            return redirect()->back();
+        } else {
+            toastr()->error('Silinirken bir hata oluştu!', 'Blog Yazıları');
         }
     }
 }

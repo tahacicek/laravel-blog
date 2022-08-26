@@ -8,8 +8,11 @@
             <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut yazılarınızı görüntülüyorsunuz.
             </h6>
             <h6 class="m-0 font-weight-bold float-right text-primary">
-                Toplam <strong>{{ $post->count() }} </strong> yazı bulundu.</h6>
+                Toplam <strong>{{ $post->count() }} </strong> yazı bulundu.</h6><br>
+                <h6 class="m-0 font-weight-bold float-right text-primary">
+                 <a href="{{ route("softdel") }}" class="btn btn-warning btn-sm"> <i class="m-2 fa fa-trash" aria-hidden="true"></i>Silinen Yazılar</a>  </h6>
         </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -42,13 +45,17 @@
                                         data-size="mini" @if ($post->status == 1) checked @endif>
                                 </td>
                                 <td class="text-center">
-                                    <a href="" title="Görünütle" class="btn btn-sm btn-success"><i
+                                    <a target="_blank" href="{{ route("blog_detail", [$post->getCategory->slug, $post->slug]) }}" title="Görünütle" class="btn btn-sm btn-success"><i
                                             class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
                                     <a href="{{ route('yazilar.edit', $post->id) }}" title="Düzenle"
                                         class="btn btn-sm btn-primary"><i class="fa fa-edit m-2"
-                                            aria-hidden="true"></i></i></i></a><br><br>
-                                    <a href="" title="Sil" class="btn btn-sm btn-danger"><i
-                                            class="fa fa-trash m-2" aria-hidden="true"></i></i></i></i></a>
+                                            aria-hidden="true"></i></a><br><br>
+                                    <form method="post" action="{{ route('yazilar.destroy', $post->id) }}">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit" title="Sil" class="btn btn-sm btn-danger"><i
+                                                class="fa fa-trash m-2" aria-hidden="true"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -74,13 +81,14 @@
         $(function() {
             $('.switch').change(function() {
                 id = +$(this)[0].getAttribute("data");
-                status=$(this).prop("checked");
-                $.get("{{ route('switch') }}", {id:id, status:status}, function(data, status) {
-                        console.log(data);
-                  });
+                status = $(this).prop("checked");
+                $.get("{{ route('switch') }}", {
+                    id: id,
+                    status: status
+                }, function(data, status) {
+                    console.log(data);
+                });
             })
         })
-
-
     </script>
 @endsection

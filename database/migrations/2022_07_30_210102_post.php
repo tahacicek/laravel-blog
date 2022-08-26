@@ -26,6 +26,7 @@ class Post extends Migration
             $table->foreign("category_id")
             ->references("id")
             ->on("categories");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

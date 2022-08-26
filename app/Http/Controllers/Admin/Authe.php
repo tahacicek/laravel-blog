@@ -26,7 +26,7 @@ class Authe extends Controller
     }
     public function logout(){
         Auth::logout();
-        toastr()->success('Girişiniz sağlandı.', "Başarılı");
+        toastr()->success('Çıkışınız sağlandı.', "Başarılı");
 
         return redirect()->route("login");
     }

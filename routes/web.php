@@ -25,8 +25,15 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     Route::get("/deletepost/{id}", "PostController@harddel" )->name("harddelete");
     Route::get("/switch", "PostController@switch" )->name("switch");
     Route::get("/trash", "PostController@softdel" )->name("softdel");
-
     Route::get("/logout", "Authe@logout")->name("logout");
+
+    Route::get("/kategoriler", "CategoryController@index")->name("category.index");
+    Route::get("/kategori/status", "CategoryController@switch" )->name("category.switch");
+    Route::get("/kategori/{id}", "CategoryController@delete" )->name("category.delete");
+    Route::post("/kategori/olustur", "CategoryController@insert" )->name("category.insert");
+    Route::get("/kategori/duzenle/{id}", "CategoryController@edit" )->name("category.edit");
+    Route::post("/kategori/guncelle/{id}", "CategoryController@update" )->name("category.update");
+
 });
 
 /*

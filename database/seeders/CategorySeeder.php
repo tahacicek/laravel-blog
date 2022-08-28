@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = ["İslam", "Tarih", "Psikoloji", "Felsefe", "Şiir"];
+        $categories = ["Genel", "İslam", "Tarih", "Psikoloji", "Felsefe", "Şiir"];
         foreach ($categories as $category) {
             # code...
             FacadesDB::table('categories')->insert([

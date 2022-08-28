@@ -29,10 +29,14 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
 
     Route::get("/kategoriler", "CategoryController@index")->name("category.index");
     Route::get("/kategori/status", "CategoryController@switch" )->name("category.switch");
+    Route::get("/kategori/getData", "CategoryController@getData" )->name("category.getdata");
+    Route::get("/kategori/getDelete", "CategoryController@getDelete" )->name("category.getdelete");
+
     Route::get("/kategori/{id}", "CategoryController@delete" )->name("category.delete");
     Route::post("/kategori/olustur", "CategoryController@insert" )->name("category.insert");
-    Route::get("/kategori/duzenle/{id}", "CategoryController@edit" )->name("category.edit");
+    // Route::get("/kategori/duzenle/{id}", "CategoryController@edit" )->name("category.edit");
     Route::post("/kategori/guncelle/{id}", "CategoryController@update" )->name("category.update");
+
 
 });
 

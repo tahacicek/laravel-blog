@@ -58,6 +58,23 @@
             </a>
 
         </li>
+        <li class="nav-item {{ request()->is('sayfalar') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTree"
+                aria-expanded="true" aria-controls="collapseTree">
+                <i class="fas fa-fw fa-paper-plane"></i>
+                <span>Sayfalar</span>
+            </a>
+            <div id="collapseTree" class="collapse {{ request()->is('sayfalar', '') ? 'show' : '' }}"
+                aria-labelledby="collapseTree" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Sayfa İşlemleri:</h6>
+                    <a class="collapse-item {{ request()->is('sayfalar') ? 'active' : '' }}"
+                        href="{{ route("page.index") }}">Tüm Sayfalar</a>
+                    <a class="collapse-item {{ request()->is('yazilar/create') ? 'active' : '' }}"
+                        href="{{ route('yazilar.create') }}">Sayfa Oluştur</a>
+                </div>
+            </div>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">

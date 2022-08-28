@@ -37,6 +37,9 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     // Route::get("/kategori/duzenle/{id}", "CategoryController@edit" )->name("category.edit");
     Route::post("/kategori/guncelle/{id}", "CategoryController@update" )->name("category.update");
 
+    //PAGE'S ROUTE'S
+    Route::get("/sayfalar", "PageController@index")->name("page.index");
+
 
 });
 

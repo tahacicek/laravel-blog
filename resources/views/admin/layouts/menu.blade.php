@@ -64,14 +64,14 @@
                 <i class="fas fa-fw fa-paper-plane"></i>
                 <span>Sayfalar</span>
             </a>
-            <div id="collapseTree" class="collapse {{ request()->is('sayfalar', '') ? 'show' : '' }}"
+            <div id="collapseTree" class="collapse {{ request()->is('sayfalar', 'sayfa/olustur') ? 'show' : '' }}"
                 aria-labelledby="collapseTree" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Sayfa İşlemleri:</h6>
                     <a class="collapse-item {{ request()->is('sayfalar') ? 'active' : '' }}"
                         href="{{ route("page.index") }}">Tüm Sayfalar</a>
-                    <a class="collapse-item {{ request()->is('yazilar/create') ? 'active' : '' }}"
-                        href="{{ route('yazilar.create') }}">Sayfa Oluştur</a>
+                    <a class="collapse-item {{ request()->is('sayfa/olustur') ? 'active' : '' }}"
+                        href="{{ route('page.create') }}">Sayfa Oluştur</a>
                 </div>
             </div>
         </li>

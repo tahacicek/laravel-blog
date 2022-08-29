@@ -39,6 +39,12 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
 
     //PAGE'S ROUTE'S
     Route::get("/sayfalar", "PageController@index")->name("page.index");
+    Route::get("sayfa/switch", "PageController@switch" )->name("page.switch");
+    Route::get("sayfa/olustur", "PageController@create" )->name("page.create");
+    Route::post("sayfalar/olustur", "PageController@insert" )->name("page.insert");
+    Route::get("/sayfalar/edit/{id}", "PageController@edit" )->name("page.edit");
+    Route::post("/sayfalar/guncelle/{id}", "PageController@update" )->name("page.update");
+    Route::get("/sayfalar/{id}", "PageController@delete" )->name("page.delete");
 
 
 });

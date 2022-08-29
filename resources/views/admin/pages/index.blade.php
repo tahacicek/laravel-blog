@@ -5,10 +5,10 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut yazılarınızı görüntülüyorsunuz.
+            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut sayfalarınızı görüntülüyorsunuz.
             </h6>
             <h6 class="m-0 font-weight-bold float-right text-primary">
-                Toplam <strong>{{ $pages->count() }} </strong> yazı bulundu.</h6><br>
+                Toplam <strong>{{ $pages->count() }} </strong> sayfa bulundu.</h6><br>
                 <h6 class="m-0 font-weight-bold float-right text-primary">
         </div>
 
@@ -27,28 +27,25 @@
                         @foreach ($pages as $pages)
                             <tr>
                                 <td>
-                                    <img src="{{ $pages->image }}" width="200" class=" img-fluid position-absolute top-100 start-50 translate-middle"
+                                    <img src="{{ $pages->image }}" width="200" class=" img-fluid img-responsive"
                                         alt="">
                                 </td>
 
                                 <td class="text-center"> {{ $pages->title }}</td>
                                 <td class="text-center">
-                                    <input class="switch" data="{{ $pages->id }}" type="checkbox" data-on="Yayında"
+                                    <input class="switch" page-id="{{ $pages->id }}" type="checkbox" data-on="Yayında"
                                         data-off="Pasif" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                         data-size="mini" @if ($pages->status == 1) checked @endif>
                                 </td>
                                 <td class="text-center">
-                                    <a target="_blank" href="" title="Görünütle" class="btn btn-sm btn-success"><i
+                                    <a target="_blank" href="{{ route("page", $pages->slug) }}" title="Görünütle" class="btn btn-sm btn-success"><i
                                             class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
-                                    <a href="{{ route('yazilar.edit', $pages->id) }}" title="Düzenle"
+                                    <a href="{{ route('page.edit', $pages->id) }}" title="Düzenle"
                                         class="btn btn-sm btn-primary"><i class="fa fa-edit m-2"
                                             aria-hidden="true"></i></a><br><br>
-                                    <form method="pages" action="{{ route('yazilar.destroy', $pages->id) }}">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button type="submit" title="Sil" class="btn btn-sm btn-danger"><i
-                                                class="fa fa-trash m-2" aria-hidden="true"></i></button>
-                                    </form>
+
+                                        <a href="{{ route("page.delete", $pages->id) }}" title="Sil" class="btn btn-sm btn-danger"><i
+                                                class="fa fa-trash m-2" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -73,9 +70,9 @@
     <script>
         $(function() {
             $('.switch').change(function() {
-                id = +$(this)[0].getAttribute("data");
+                id = +$(this)[0].getAttribute("page-id");
                 status = $(this).prop("checked");
-                $.get("{{ route('switch') }}", {
+                $.get("{{ route('page.switch') }}", {
                     id: id,
                     status: status
                 }, function(data, status) {

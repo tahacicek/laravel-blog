@@ -5,10 +5,10 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="border-bottom-success card-header py-3">
-            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut yazınızı düzenliyorsunuz
+            <h6 class="m-0 font-weight-bold float-left text-primary">Bu tabloda mevcut sayfaınızı düzenliyorsunuz
             </h6>
             <h6 class="m-0 font-weight-bold float-right text-primary">
-                 <strong>{{ $post->title." " }}</strong>isimli yazı.</h6>
+                 <strong>{{ $page->title." " }}</strong>isimli sayfa.</h6>
         </div>
         <div class="row">
             <div class="col-12">
@@ -16,55 +16,29 @@
                     <div class="card-header ">
                     </div>
                     <div class="card-body">
-                        <form action="{{ route("yazilar.update", $post->id) }}" method="post" enctype="multipart/form-data">
-                            @csrf 
-
-
-                            @method("PUT")
+                        <form action="{{ route("page.update", $page->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="form-group mb-3">
-                                        <label class="" for="title">Yazı Başlığı</label>
-                                        <input value="{{ $post->title }}" type="text" name="title" id="title" class="border-left-success form-control">
+                                        <label class="" for="title">Sayfa Başlığı</label>
+                                        <input value="{{ $page->title }}" type="text" name="title" id="title" class="border-left-success form-control">
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="author">Yazar</label>
-                                        <input type="text" value="{{ $post->author }}" name="author" id="author" class="border-left-success form-control">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="category_id">Yazı Kategorisi</label>
-                                        <select name="category_id" id="category_id" class="border-left-success form-control">
-                                            <option value="">Seçim Yapınız</option>
-                                            @foreach ($categories as $category)
-                                                <option  value="{{ $category->id }}" @if($post->category_id==$category->id) selected @endif>{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-
                                 <div class="col-12 col-md-12">
                                     <div class="form-group mb-3">
-                                        <label for="descr">Yazı İçeriği</label>
-                                        <textarea id="editor" class="editor form-control" name="descr" rows="5">{!! $post->descr  !!}</textarea>
+                                        <label for="descr">Sayfa İçeriği</label>
+                                        <textarea id="editor" class="editor form-control" name="content" rows="5">{!! $page->content  !!}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 col-12">
-                                    <label for="image" name="image" class="form-label">Yazı Görseli </label><br>
-                                    <img src="{{ asset($post->image) }}" style="width:20rem;" class="p-3 rounded mx-auto d-block img-fluid rounded-top" alt="">
-                                  
+                                    <label for="image" name="image" class="form-label">Sayfa Görseli </label><br>
+                                    <img src="{{ asset($page->image) }}" style="width:20rem;" class="p-3 rounded mx-auto d-block img-fluid rounded-top" alt="">
                                     <input class="border-left-success p-1 form-control" name="image" type="file" id="image">
                                 </div>
-
                                 <button class="btn btn-outline-primary btn-block" type="submit">Güncelle</button>
-                           
                             </div>
                         </form>
-                    
                 </div>
             </div>
         </div>

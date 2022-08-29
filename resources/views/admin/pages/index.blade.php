@@ -11,6 +11,9 @@
             <h6 class="m-0 font-weight-bold float-right text-primary">
         </div>
         <div class="card-body">
+            <div id="orderSuccess" style="display: none;" class="border-left-danger border-bottom-danger alert alert-success">
+                Sıralama Başarılı!
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -25,7 +28,7 @@
                     <tbody id="orders">
                         @foreach ($pages as $pages)
                             <tr id="page_{{ $pages->id }}">
-                                <td style="width: 10px" class="text-center " >
+                                <td style="width: 10px" class=" text-center " >
                                     <i class="fa fa-3x mt-5 fa-sort handle" style="cursor: move" aria-hidden="true">
                             </td>
                                 <td style="width: 350px" class="text-center">
@@ -75,8 +78,10 @@
             handle:".handle",
             update:function(){
              var siralama = $("#orders").sortable("serialize");
-             $.get("{{ route("page.orders") }}", {orders:siralama}, function(data, status){});
-             console.log(data);
+             $.get("{{route("page.orders")}}?"+siralama, function(data,status){
+                $("#orderSuccess").show();
+                setTimeout(function(){$("#orderSuccess").hide();}, 999)
+             });
             }
         });
     </script>

@@ -113,8 +113,9 @@ class PageController extends Controller
 
     public function orders(Request $request){
 
-        foreach ($request->get("orders") $key=>$order) {
-            # code...
+        foreach ($request->get("page") as $key => $order) {
+            Page::where("id", $order)->update(["order"=>$key]);
+
         }
     }
 

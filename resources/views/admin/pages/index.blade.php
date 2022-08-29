@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('title', 'Blog Yazıları')
-
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -9,28 +8,30 @@
             </h6>
             <h6 class="m-0 font-weight-bold float-right text-primary">
                 Toplam <strong>{{ $pages->count() }} </strong> sayfa bulundu.</h6><br>
-                <h6 class="m-0 font-weight-bold float-right text-primary">
+            <h6 class="m-0 font-weight-bold float-right text-primary">
         </div>
-
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Fotoğraf</th>
-                            <th>Sayfa Başlığı</th>
-                            <th>Durum</th>
-                            <th>İşlemler</th>
+                            <th>Sıralama</th>
+                            <th class="text-center">Fotoğraf</th>
+                            <th class="text-center">Sayfa Başlığı</th>
+                            <th  class="text-center">Durum</th>
+                            <th class="text-center">İşlemler</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="orders">
                         @foreach ($pages as $pages)
-                            <tr>
-                                <td>
-                                    <img src="{{ $pages->image }}" width="200" class=" img-fluid img-responsive"
+                            <tr id="page_{{ $pages->id }}">
+                                <td style="width: 10px" class="text-center " >
+                                    <i class="fa fa-3x mt-5 fa-sort handle" style="cursor: move" aria-hidden="true">
+                            </td>
+                                <td style="width: 350px" class="text-center">
+                                    <img src="{{ $pages->image }}" width="200" class="mt-4 img-fluid img-responsive"
                                         alt="">
                                 </td>
-
                                 <td class="text-center"> {{ $pages->title }}</td>
                                 <td class="text-center">
                                     <input class="switch" page-id="{{ $pages->id }}" type="checkbox" data-on="Yayında"
@@ -38,14 +39,14 @@
                                         data-size="mini" @if ($pages->status == 1) checked @endif>
                                 </td>
                                 <td class="text-center">
-                                    <a target="_blank" href="{{ route("page", $pages->slug) }}" title="Görünütle" class="btn btn-sm btn-success"><i
-                                            class="fa fa-eye m-2" aria-hidden="true"></i></a><br><br>
+                                    <a target="_blank" href="{{ route('page', $pages->slug) }}" title="Görünütle"
+                                        class="btn btn-sm btn-success"><i class="fa fa-eye m-2"
+                                            aria-hidden="true"></i></a><br><br>
                                     <a href="{{ route('page.edit', $pages->id) }}" title="Düzenle"
                                         class="btn btn-sm btn-primary"><i class="fa fa-edit m-2"
                                             aria-hidden="true"></i></a><br><br>
-
-                                        <a href="{{ route("page.delete", $pages->id) }}" title="Sil" class="btn btn-sm btn-danger"><i
-                                                class="fa fa-trash m-2" aria-hidden="true"></i></a>
+                                    <a href="{{ route('page.delete', $pages->id) }}" title="Sil"
+                                        class="btn btn-sm btn-danger"><i class="fa fa-trash m-2" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -66,7 +67,19 @@
 @section('js')
     <!-- include summernote js -->
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
+    <script>
+        $("#orders").sortable({
+            handle:".handle",
+            update:function(){
+             var siralama = $("#orders").sortable("serialize");
+             $.get("{{ route("page.orders") }}", {orders:siralama}, function(data, status){});
+             console.log(data);
+            }
+        });
+    </script>
     <script>
         $(function() {
             $('.switch').change(function() {

@@ -111,4 +111,11 @@ class PageController extends Controller
             return redirect()->back();
     }
 
+    public function orders(Request $request){
+
+        foreach ($request->get("orders") $key=>$order) {
+            # code...
+        }
+    }
+
 }

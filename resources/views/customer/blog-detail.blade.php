@@ -35,6 +35,6 @@
         </div>
 
     </article>
-      
+
 @endsection
 

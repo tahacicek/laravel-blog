@@ -45,8 +45,12 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
     Route::get("/sayfalar/edit/{id}", "PageController@edit" )->name("page.edit");
     Route::post("/sayfalar/guncelle/{id}", "PageController@update" )->name("page.update");
     Route::get("/sayfalar/siralama", "PageController@orders" )->name("page.orders");
-
     Route::get("/sayfalar/{id}", "PageController@delete" )->name("page.delete");
+
+    //SETTING'S ROUTE'S
+    Route::get("/ayarlar", "ConfigController@index" )->name("config.index");
+
+
 
 
 });

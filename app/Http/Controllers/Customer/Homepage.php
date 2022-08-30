@@ -21,6 +21,7 @@ use App\Models\Page;
 use App\Models\Contact;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Config;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,8 +31,15 @@ class Homepage extends Controller
 {
     public function __construct()
     {
+
+
         view()->share("pages", Page::orderBy("order", "ASC")->get());
         view()->share("categories", Category::inRandomOrder()->get());
+        if (Config::find(1)->active == 0) {
+            return redirect()->to("aktif-degil")->send();
+        }
+
+
     }
     public function index()
     {
@@ -83,16 +91,17 @@ class Homepage extends Controller
             return redirect()->route("contact");
         }
 
-        Mail::send([], [], function($message) use($request){
-                  $message->from("iletisim@blogsites.com", "Easoft");
-                  $message->to("ttahacicek@gmail.com");
-                  $message->setBody(
-                  "Mesajı gönderen : $request->name </br>
+        Mail::send([], [], function ($message) use ($request) {
+            $message->from("iletisim@blogsites.com", "Easoft");
+            $message->to("ttahacicek@gmail.com");
+            $message->setBody(
+                "Mesajı gönderen : $request->name </br>
                   Mesajı gönderen mail :  '.$request->email </br>
                   Mesajı konusu :  $request->topic </br>
                   Mesajı : $request->message </br>
-                  Mesaj gönderilme tarihi : .'.now().'., 'text/html'");
-                  $message->subject($request->name. "İletişimden mesaj gönderdi!");
+                  Mesaj gönderilme tarihi : .'.now().'., 'text/html'"
+            );
+            $message->subject($request->name . "İletişimden mesaj gönderdi!");
         });
 
         $contact = new Contact;

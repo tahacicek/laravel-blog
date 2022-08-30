@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\PostController;
 |Back Route
 |--------------------------------------------------------------------------
 */
-
+Route::get("aktif-degil", function(){
+    return view("customer.deactive");
+});
 Route::namespace('Admin')->middleware("isLogin")->group(function () {
     Route::get("/login", "Authe@login")->name("login");
     Route::post("/login.ln", "Authe@loginPost")->name("login.post");
@@ -49,6 +51,7 @@ Route::namespace('Admin')->middleware("isAdmin")->group(function () {
 
     //SETTING'S ROUTE'S
     Route::get("/ayarlar", "ConfigController@index" )->name("config.index");
+    Route::post("/ayarlar/update", "ConfigController@update" )->name("config.update");
 
 
 
